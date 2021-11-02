@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div{
+            border:1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <!-- 利用冒泡/事件委托/事件代理 event delegate-->
+    <div id="keys">
+		<button>1</button>
+		<button>2</button>
+		<button>3</button>
+		<button>4</button><br>
+		<button>C</button>
+		<button>+</button>
+		<button>-</button>
+		<button>=</button>
+	</div>
+	<textarea id="sc" style="resize:none;width:200px; height:50px;" readonly></textarea>
+    <script>
+        //希望点每个按钮都能喊疼
+        var div=document.getElementById("keys");
+        div.onclick=function(e){
+            if(e.target.nodeName==="BUTTON"){//只有e.target是按钮时,才继续执行后续操作！
+                var text=document.getElementById("sc");
+                alert(`${e.target.innerHTML} 疼！`);//e.target代替this
+                text.innerHTML=`${e.target.innerHTML}`
+            }
+            
+        }
+    </script>
+</body>
+</html>
