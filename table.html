@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>常用的HTML Dom对象:2.HTML Table对象</title>
+	<style>
+		table{
+			width: 600px;
+			border-collapse: collapse;
+			text-align: center;
+		}
+		td,th{border: 1px solid #ccc;}
+	</style>
+
+</head>
+<body>
+	<h1>动态创建表格</h1>
+	<div id="data"></div>
+	<script>
+		var json=[
+			{"ename":"Tom","salary":11000,"age":25},
+			{"ename":"John","salary":13000,"age":28},
+			{"ename":"Mary","salary":12000,"age":25},
+		];
+		//先创建table
+		var table=document.createElement("table");
+		//将table元素追加到id为data的div下：
+		document.getElementById("data").appendChild(table)
+		//创建thead元素并追加到table下：
+		var thead=table.createTHead();
+
+		//创建tr,并追加到thead下：
+		var tr=thead.insertRow();
+		var emp1=json[0];
+		// console.log(emp1);
+		// //遍历
+		for(key in emp1){
+			var td=document.createElement("th");
+			tr.appendChild(td);
+			td.innerHTML=key;
+		}
+		var td=tr.insertCell();
+		td.innerHTML="删除";
+
+		//2.创建tbody,并追加到table下
+		var tbody=table.createTBody();
+		console.log(data);
+		//创建tr,并追加到tbody下
+		var tr=tbody.insertRow();
+		//遍历json数组中的每个员工对象
+		for(var emp of json){//复习遍历
+			//每遍历一个员工对象,就创建一个tr,并将tr放到tbody下
+			var tr=tbody.insertRow();
+			//遍历当前员工对象中的属性,每遍历一个属性就创建一个td并放在tr下
+			for(key in emp){
+				//每遍历一个属性值,就创建一个td,并将td追加到tr中
+				//同时设置td的内容为当前对象的当前属性值
+				var td=tr.insertCell();
+				td.innerHTML=emp[key]
+			}
+			var td=tr.insertCell();
+			var btn=document.createElement("button");
+			btn.innerHTML="×";
+			td.appendChild(btn);
+			btn.onclick=function(){
+				var tr=this.parentNode.parentNode;
+				var ename=tr.cells[0].innerHTML;
+				console.log(ename);
+				if(confirm(`是否确认真的要删除${ename}?`)==true){
+					table.deleteRow(tr.rowIndex);
+				}
+				
+
+			}
+		}
+		
+	</script>
+</body>
+</html>
